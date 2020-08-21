@@ -1,0 +1,85 @@
+<!-- Purpose: to create an in-browser rock paper scissors game that takes 
+player input, spits out a win/loss record, and goes best out of five. 
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rock, Paper, Scissors</title>
+    <meta charset="utf-8">
+    <link a href="stylesheet.css" rel="stylesheet">
+</head>
+<body>
+    <script>
+        /* global variables */
+        let playerScore = 0;
+        let computerScore = 0;
+        let roundCount =0;
+        
+        
+        /*needs to give back rock, paper, or scissors at random */
+        function computerPlay() {
+            const rpsArray = ["rock", "paper", "scissors"];
+            const computerChoice = rpsArray[Math.floor(Math.random() * rpsArray.length)];
+            return computerChoice;
+        }
+
+        function playerPlay() {
+            let playerChoice = window.prompt("Rock, Paper, or Scissors?").toLowerCase();
+            if (playerChoice === 'rock' || playerChoice === 'paper' || playerChoice === 'scissors') {
+                return playerChoice;
+            } else {
+                alert(playerChoice + " is not an option.");
+                window.prompt("Rock, Paper, or Scissors?").toLowerCase();
+            }   
+        }
+
+        function playRound() {
+            let playerSelection = playerPlay();
+            let computerSelection = computerPlay();
+            if ((playerSelection === "rock" && computerSelection === "scissors") || 
+                (playerSelection === "paper") && (computerSelection === "rock") ||
+                (playerSelection === "scissors" && computerSelection === "paper")) 
+                {
+                    playerScore++;
+                    roundCount++;
+                    alert(`You won! Your current score is ${playerScore} and the computer's current score is ${computerScore}. Best ${roundCount} out of Five.`);
+                } else if (playerSelection === computerSelection) {
+                    roundCount++;
+                    alert(`It's a tie. Your current score is ${playerScore} and the computer's current score is ${computerScore}. Best ${roundCount} out of Five.`);
+                } else { computerScore++;
+                         roundCount++;
+                         alert(`You lose!. Your current score is ${playerScore} and the computer's current score is ${computerScore}. Best ${roundCount} out of Five.`);
+                        }
+        }
+
+        function playGame() {
+            for (let i = 0; i < 5; i++) {
+                playRound();
+            }
+            if (playerScore > computerScore) {
+                alert(`You won! Final Score: ${playerScore} to ${computerScore}`);
+            } else {
+                alert(`You lose! Final Score ${computerScore} to ${playerScore}`);
+            }
+        gameReset();
+        }
+
+        function gameReset() {
+            playerScore = 0;
+            computerScore = 0;
+            roundCount = 0;
+        }
+        playGame();
+
+
+
+
+
+    </script>
+
+
+
+</body>
+</html>
+
